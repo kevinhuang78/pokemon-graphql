@@ -7,6 +7,8 @@ import { GET_ALL } from '../graphql/Pokemon.graphql';
 import { Pokemon as PokemonType } from '../types/Pokemon';
 import Page from '../components/Page';
 
+const NUMBER_OF_POKEMON_PER_PAGE = 300;
+
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -30,8 +32,9 @@ const Pagination = styled.div`
 
 const Home = () => {
   const [page, setPage] = useState(1);
+  const offset = (page - 1) * NUMBER_OF_POKEMON_PER_PAGE;
   const { data, loading: isLoading, error } = useQuery(GET_ALL, {
-    variables: { offset: page - 1, take: 300 },
+    variables: { offset, take: NUMBER_OF_POKEMON_PER_PAGE },
   });
 
   if (error) return <div>API Error !</div>;
