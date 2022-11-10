@@ -28,6 +28,7 @@ const Pagination = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: 15px;
 `;
 
 const Home = () => {
@@ -52,7 +53,9 @@ const Home = () => {
             )}
           </PokemonsList>
           <Pagination>
-            {[1, 2, 3, 4, 5].map((number) => <Page activePage={page} pageNumber={number} onPress={setPage} />)}
+            {[1, 2, 3, 4, 5].map((number) => (
+              <Page key={number} activePage={page} pageNumber={number} onPress={setPage} />
+            ))}
           </Pagination>
         </>
       )}
