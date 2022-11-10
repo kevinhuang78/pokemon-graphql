@@ -30,9 +30,11 @@ const Pagination = styled.div`
 
 const Home = () => {
   const [page, setPage] = useState(1);
-  const { data, loading: isLoading } = useQuery(GET_ALL, {
+  const { data, loading: isLoading, error } = useQuery(GET_ALL, {
     variables: { offset: page - 1, take: 300 },
   });
+
+  if (error) return <div>'API Error !'</div>;
 
   return (
     <Container>
