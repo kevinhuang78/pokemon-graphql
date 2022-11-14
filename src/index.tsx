@@ -6,7 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const GlobalStyle = createGlobalStyle`
-  body { margin: 0; }
+  body { margin: 0; overflow-x: hidden; }
 `;
 
 const root = ReactDOM.createRoot(

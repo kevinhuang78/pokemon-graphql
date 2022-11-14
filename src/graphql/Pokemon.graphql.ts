@@ -24,6 +24,13 @@ export const GET = gql`
       types {
         name
       }
+      baseStats {
+        attack
+        defense
+        specialattack
+        specialdefense
+        speed
+      }
       evolutionLevel
       evolutions {
         key

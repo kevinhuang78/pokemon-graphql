@@ -15,6 +15,13 @@ const attackMenuBorderStyle = css`
   border: 7px solid #76718F;
 `;
 
+const absoluteButtonStyle = css`
+  padding: 10px 20px;
+  cursor: pointer;
+  background: #FFF;
+  border-radius: 10px;
+`;
+
 const Background = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -26,10 +33,7 @@ const BackButton = styled.div`
   position: absolute;
   top: 5px;
   left: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-  background: #FFF;
-  border-radius: 10px;
+  ${absoluteButtonStyle}
 `;
 
 const ImageContainer = styled.div`
@@ -106,10 +110,36 @@ const AttackDescription = styled.span`
   font-size: 18px;
 `;
 
+const OpenModalButton = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  ${absoluteButtonStyle}
+`;
+
+const Modal = styled.div<{
+  $isShown: boolean;
+}>`
+  position: absolute;
+  left: ${({ $isShown }) => $isShown ? '0' : '100%'};
+  top: 0;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  background: #FFF;
+  transition: all .5s ease-in-out;
+`;
+
+const PokemonName = styled.h1`
+  text-align: center;
+`;
+
 const Details = () => {
   const navigate = useNavigate();
   const [selectedAttack, setSelectedAttack] = useState<Ability | null>(null);
   const [isShiny, setIsShiny] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { pokemonKey } = useParams();
   const { data, loading: isLoading, error } = useQuery(GET, {
     variables: { pokemon: pokemonKey },
@@ -119,6 +149,10 @@ const Details = () => {
   const onPressBack = useCallback(() => {
     navigate(-1);
   }, [navigate]);
+
+  const toggleModal = useCallback(() => {
+    setIsModalOpen((prev) => !prev);
+  }, []);
 
   const switchSprite = useCallback(() => {
     setIsShiny((prev) => !prev);
@@ -132,12 +166,62 @@ const Details = () => {
     shinySprite,
     key,
     abilities: { first, second, special, hidden },
+    evolutionLevel,
+    species,
+    types,
+    weight,
+    height,
+    baseStats: {
+      attack, defense, specialattack, specialdefense, speed,
+    },
+    evolutions,
+    preevolutions,
   } = pokemon;
   const name = toCapitalize(key);
 
   return (
     <Background>
       <BackButton onClick={onPressBack}>Retour</BackButton>
+      <OpenModalButton onClick={toggleModal}>Stats</OpenModalButton>
+      <Modal $isShown={isModalOpen}>
+        <PokemonName>{name}</PokemonName>
+        {!!species && <p>{`Species : ${species}`}</p>}
+        <p>{`Types: ${types.map(({ name }) => name).join(', ')}`}</p>
+        <p>{`Weight: ${weight}`}</p>
+        <p>{`Height: ${height}`}</p>
+        <p>Stats:</p>
+        <ul>
+          <li>{`Attack: ${attack}`}</li>
+          <li>{`Defense: ${defense}`}</li>
+          <li>{`Special Attack: ${specialattack}`}</li>
+          <li>{`Special Defense: ${specialdefense}`}</li>
+          <li>{`Speed: ${speed}`}</li>
+        </ul>
+        {!!evolutionLevel && <p>{`Evolution at level ${evolutionLevel}`}</p>}
+        {!!evolutions && (
+          <div>
+            <p>Evolutions</p>
+            {evolutions.map((evolution) => (
+              <>
+                <img src={evolution.sprite} alt={evolution.key} />
+                <p>{toCapitalize(evolution.key)}</p>
+              </>
+            ))}
+          </div>
+        )}
+        {!!preevolutions && (
+          <div>
+            <p>Pre-evolutions</p>
+            {preevolutions.map((preevolution) => (
+              <>
+                <img src={preevolution.sprite} alt={preevolution.key} />
+                <p>{toCapitalize(preevolution.key)}</p>
+              </>
+            ))}
+          </div>
+        )}
+        <button onClick={toggleModal}>Close</button>
+      </Modal>
       <ImageContainer>
         <Sprite src={isShiny ? shinySprite : sprite} alt={name} onClick={switchSprite} />
       </ImageContainer>

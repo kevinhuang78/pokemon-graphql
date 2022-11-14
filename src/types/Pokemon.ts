@@ -25,7 +25,7 @@ export type Pokemon = {
     second: Ability | null;
     special: Ability | null;
   };
-  species: string;
+  species: string | null;
   evolutionLevel: string;
   evolutions: Pick<Pokemon, 'key' | 'sprite'>[] | null;
   preevolutions: Pick<Pokemon, 'key' | 'sprite'>[] | null;
