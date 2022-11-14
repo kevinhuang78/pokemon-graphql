@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { GET } from '../graphql/Pokemon.graphql';
@@ -20,6 +20,16 @@ const Background = styled.div`
   min-height: 100vh;
   background: no-repeat center center url(${battleBackground});
   background-size: cover;
+`;
+
+const BackButton = styled.div`
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background: #FFF;
+  border-radius: 10px;
 `;
 
 const ImageContainer = styled.div`
@@ -89,12 +99,17 @@ const AttackDescription = styled.span`
 `;
 
 const Details = () => {
+  const navigate = useNavigate();
   const [selectedAttack, setSelectedAttack] = useState<Ability | null>(null);
   const { pokemonKey } = useParams();
   const { data, loading: isLoading, error } = useQuery(GET, {
     variables: { pokemon: pokemonKey },
   });
   const pokemon: Pokemon = data?.getPokemon;
+
+  const onPressBack = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
 
   if (error) return <div>{`${error}`}</div>;
   if (isLoading) return <span>Loading...</span>;
@@ -108,6 +123,7 @@ const Details = () => {
 
   return (
     <Background>
+      <BackButton onClick={onPressBack}>Retour</BackButton>
       <ImageContainer>
         <Sprite src={sprite} alt={name} />
       </ImageContainer>
