@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 
 import Pokemon, { PokemonCard } from '../components/Pokemon';
 import { GET_ALL } from '../graphql/Pokemon.graphql';

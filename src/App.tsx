@@ -1,12 +1,13 @@
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
 import Home from './screens/Home';
 import Details from './screens/Details';
 
 const client = new ApolloClient({
-  uri: 'https://graphqlpokemon.favware.tech/v7'
-});
+  uri: 'https://graphqlpokemon.favware.tech/v7',
+  cache: new InMemoryCache(),
+})
 
 const App = () => (
   <ApolloProvider client={client}>
