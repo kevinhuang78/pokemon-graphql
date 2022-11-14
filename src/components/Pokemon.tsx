@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Pokemon as PokemonType } from '../types/Pokemon';
+import { toCapitalize } from '../utils/string';
 
 const HORIZONTAL_MARGIN = 10;
 
-const Container = styled.div`
+const Container = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +16,8 @@ const Container = styled.div`
   margin: 15px ${HORIZONTAL_MARGIN}px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   border-radius: 15px;
+  color: #000;
+  text-decoration: none;
 
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -49,16 +53,25 @@ const TypesContainer = styled.span`
   width: 100%;
 `;
 
+export type PokemonCard = Pick<PokemonType,
+  'baseStats'
+  | 'height'
+  | 'key'
+  | 'sprite'
+  | 'types'
+  | 'weight'
+>;
+
 type PokemonProps = {
-  pokemon: PokemonType;
+  pokemon: PokemonCard;
 };
 
 const Pokemon = ({ pokemon }: PokemonProps) => {
   const { key, sprite, height, weight, types } = pokemon;
-  const name = `${key.charAt(0).toUpperCase()}${key.slice(1)}`;
+  const name = toCapitalize(key);
 
   return (
-    <Container>
+    <Container to={`/pokemon/${key}`}>
       <ImageContainer>
         <img src={sprite} alt={name} />
       </ImageContainer>

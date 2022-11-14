@@ -2,9 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/react-hooks';
 
-import Pokemon from '../components/Pokemon';
+import Pokemon, { PokemonCard } from '../components/Pokemon';
 import { GET_ALL } from '../graphql/Pokemon.graphql';
-import { Pokemon as PokemonType } from '../types/Pokemon';
 import Page from '../components/Page';
 
 const NUMBER_OF_POKEMON_PER_PAGE = 300;
@@ -38,7 +37,7 @@ const Home = () => {
     variables: { offset, take: NUMBER_OF_POKEMON_PER_PAGE },
   });
 
-  if (error) return <div>API Error !</div>;
+  if (error) return <div>{`${error}`}</div>;
 
   return (
     <Container>
@@ -49,7 +48,7 @@ const Home = () => {
         <>
           <PokemonsList>
             {data?.getAllPokemon?.map(
-              (pokemon: PokemonType) => <Pokemon key={pokemon.key} pokemon={pokemon} />
+              (pokemon: PokemonCard) => <Pokemon key={pokemon.key} pokemon={pokemon} />
             )}
           </PokemonsList>
           <Pagination>
