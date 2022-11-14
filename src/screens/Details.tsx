@@ -55,8 +55,9 @@ const ImageContainer = styled.div`
 `;
 
 const Sprite = styled.img`
-  width: 200px;
-  height: auto;
+  height: 200px;
+  width: auto;
+  cursor: pointer;
 `;
 
 const Menu = styled.div`
@@ -90,6 +91,7 @@ const Attacks = styled.div`
 const AttackDescriptionContainer = styled.div`
   ${attackMenuBorderStyle}
   width: 100%;
+  overflow-y: auto;
 
   @media (min-width: 1024px) {
     display: flex;
@@ -107,6 +109,7 @@ const AttackDescription = styled.span`
 const Details = () => {
   const navigate = useNavigate();
   const [selectedAttack, setSelectedAttack] = useState<Ability | null>(null);
+  const [isShiny, setIsShiny] = useState(false);
   const { pokemonKey } = useParams();
   const { data, loading: isLoading, error } = useQuery(GET, {
     variables: { pokemon: pokemonKey },
@@ -117,11 +120,16 @@ const Details = () => {
     navigate(-1);
   }, [navigate]);
 
+  const switchSprite = useCallback(() => {
+    setIsShiny((prev) => !prev);
+  }, []);
+
   if (error) return <div>{`${error}`}</div>;
   if (isLoading) return <span>Loading...</span>;
 
   const {
     sprite,
+    shinySprite,
     key,
     abilities: { first, second, special, hidden },
   } = pokemon;
@@ -131,7 +139,7 @@ const Details = () => {
     <Background>
       <BackButton onClick={onPressBack}>Retour</BackButton>
       <ImageContainer>
-        <Sprite src={sprite} alt={name} />
+        <Sprite src={isShiny ? shinySprite : sprite} alt={name} onClick={switchSprite} />
       </ImageContainer>
       <Menu>
         <Attacks>
