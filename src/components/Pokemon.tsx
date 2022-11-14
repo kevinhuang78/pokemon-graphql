@@ -10,7 +10,7 @@ const Container = styled(Link)`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  width: calc(25% - ${HORIZONTAL_MARGIN * 2}px);
+  width: calc(50% - ${HORIZONTAL_MARGIN * 2}px);
   cursor: pointer;
   padding: 20px 0;
   margin: 15px ${HORIZONTAL_MARGIN}px;
@@ -21,6 +21,10 @@ const Container = styled(Link)`
 
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+  @media (min-width: 1200px) {
+    width: calc(25% - ${HORIZONTAL_MARGIN * 2}px);
   }
 `;
 
@@ -33,6 +37,8 @@ const ImageContainer = styled.div`
 const InfoContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  padding: 10px 20px 0px;
+  word-break: break-all;
 `;
 
 const Name = styled.h2`
