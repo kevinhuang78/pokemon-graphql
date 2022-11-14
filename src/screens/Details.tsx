@@ -181,7 +181,7 @@ const Details = () => {
 
   return (
     <Background>
-      <BackButton onClick={onPressBack}>Retour</BackButton>
+      <BackButton onClick={onPressBack}>Back</BackButton>
       <OpenModalButton onClick={toggleModal}>Stats</OpenModalButton>
       <Modal $isShown={isModalOpen}>
         <PokemonName>{name}</PokemonName>
