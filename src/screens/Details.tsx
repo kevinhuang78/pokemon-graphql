@@ -67,6 +67,11 @@ const Menu = styled.div`
   width: 100vw;
   height: 200px;
   background-color: #393742;
+  flex-wrap: wrap;
+
+  @media (min-width: 1024px) {
+    flex-wrap: nowrap;
+  }
 `;
 
 const Attacks = styled.div`
@@ -78,12 +83,13 @@ const Attacks = styled.div`
 
   @media (min-width: 1024px) and (max-width: 1199px) {
     width: 70%;
+    flex-wrap: nowrap;
   }
 `;
 
 const AttackDescriptionContainer = styled.div`
-  display: none;
   ${attackMenuBorderStyle}
+  width: 100%;
 
   @media (min-width: 1024px) {
     display: flex;
