@@ -1,7 +1,7 @@
-type Ability = {
+export type Ability = {
   key: string;
   name: string;
-  description?: string;
+  desc: string | null;
 };
 
 export type Pokemon = {
