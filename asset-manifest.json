@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/pokemon-graphql/static/js/main.57b8a8c4.js",
+    "main.js": "/pokemon-graphql/static/js/main.6f728a09.js",
     "static/js/787.ffa7e181.chunk.js": "/pokemon-graphql/static/js/787.ffa7e181.chunk.js",
     "static/media/battle-background.webp": "/pokemon-graphql/static/media/battle-background.b0659a177cac1ce396fd.webp",
     "index.html": "/pokemon-graphql/index.html",
-    "main.57b8a8c4.js.map": "/pokemon-graphql/static/js/main.57b8a8c4.js.map",
+    "main.6f728a09.js.map": "/pokemon-graphql/static/js/main.6f728a09.js.map",
     "787.ffa7e181.chunk.js.map": "/pokemon-graphql/static/js/787.ffa7e181.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.57b8a8c4.js"
+    "static/js/main.6f728a09.js"
   ]
 }
