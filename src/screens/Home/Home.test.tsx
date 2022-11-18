@@ -1,9 +1,10 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { GraphQLError } from 'graphql';
+import { createMemoryHistory } from 'history';
 
 import { GET_ALL } from '../../graphql/Pokemon.graphql';
-import { renderScreen } from '../../tests/utils';
+import { historyPushedRoute, renderScreen } from '../../tests/utils';
 
 import Home, { NUMBER_OF_POKEMON_PER_PAGE } from './Home';
 
@@ -91,6 +92,21 @@ describe('Home screen', () => {
   });
 
   it('redirects to details screen when pressing on Pokemon card', async () => {
+    const history = createMemoryHistory({ initialEntries: ['/'], initialIndex: 0 })
+    renderScreen({
+      screen: <Home />,
+      graphQLMocks: successGraphQLMock,
+      history,
+    });
+
+    expect(screen.getByText('Pokédex')).toBeInTheDocument();
+    expect(await screen.findByText('Loading...')).toBeInTheDocument();
+    expect(await screen.findByText('Charizard')).toBeInTheDocument();
+
+    userEvent.click(screen.getByText('Charizard'));
+
+    historyPushedRoute(history, '/pokemon/charizard');
+    expect(history.push).toHaveBeenCalledTimes(1);
   });
 
   it('shows error correctly', async () => {

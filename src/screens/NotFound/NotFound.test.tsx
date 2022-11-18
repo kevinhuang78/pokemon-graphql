@@ -1,6 +1,8 @@
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { createMemoryHistory } from 'history';
 
-import { renderScreen } from '../../tests/utils';
+import { historyPushedRoute, renderScreen } from '../../tests/utils';
 
 import NotFound from './NotFound';
 
@@ -15,5 +17,15 @@ describe('Home screen', () => {
   });
 
   it('redirects to home screen when clicking on the link', () => {
+    const history = createMemoryHistory({ initialEntries: ['/random-route'], initialIndex: 0 });
+    renderScreen({
+      screen: <NotFound />,
+      history,
+    });
+
+    userEvent.click(screen.getByRole('link', { name: 'home page' }));
+
+    historyPushedRoute(history, '/');
+    expect(history.push).toHaveBeenCalledTimes(1);
   });
 });
