@@ -33,9 +33,10 @@ describe('Home screen', () => {
       graphQLMocks: successGraphQLMock,
     });
 
-    expect(screen.getByText('Pokédex')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Pokédex' })).toBeInTheDocument();
     expect(await screen.findByText('Loading...')).toBeInTheDocument();
     expect(await screen.findByText('Charizard')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Charizard' })).toBeInTheDocument();
     expect(screen.getByText('Height: 1.7 and weight: 90.5')).toBeInTheDocument();
     expect(screen.getByText('Fire, Flying')).toBeInTheDocument();
 
@@ -72,7 +73,7 @@ describe('Home screen', () => {
       ],
     });
 
-    expect(screen.getByText('Pokédex')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Pokédex' })).toBeInTheDocument();
     expect(await screen.findByText('Loading...')).toBeInTheDocument();
     expect(await screen.findByText('Charizard')).toBeInTheDocument();
 
@@ -99,7 +100,7 @@ describe('Home screen', () => {
       history,
     });
 
-    expect(screen.getByText('Pokédex')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Pokédex' })).toBeInTheDocument();
     expect(await screen.findByText('Loading...')).toBeInTheDocument();
     expect(await screen.findByText('Charizard')).toBeInTheDocument();
 
@@ -121,7 +122,7 @@ describe('Home screen', () => {
       }]
     });
 
-    expect(screen.getByText('Pokédex')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Pokédex' })).toBeInTheDocument();
     expect(await screen.findByText('Loading...')).toBeInTheDocument();
     expect(await screen.findByText("Error: An error occurred")).toBeInTheDocument();
   });
