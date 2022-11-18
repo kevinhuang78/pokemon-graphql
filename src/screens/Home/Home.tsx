@@ -2,11 +2,11 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 
-import Pokemon, { PokemonCard } from '../components/Pokemon';
-import { GET_ALL } from '../graphql/Pokemon.graphql';
-import Page from '../components/Page';
+import Pokemon, { PokemonCard } from '../../components/Pokemon';
+import { GET_ALL } from '../../graphql/Pokemon.graphql';
+import Page from '../../components/Page';
 
-const NUMBER_OF_POKEMON_PER_PAGE = 300;
+export const NUMBER_OF_POKEMON_PER_PAGE = 300;
 
 const Container = styled.div`
   display: flex;

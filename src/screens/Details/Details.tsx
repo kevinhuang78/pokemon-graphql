@@ -3,11 +3,11 @@ import { useQuery } from '@apollo/client';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { GET } from '../graphql/Pokemon.graphql';
-import { Ability, Pokemon } from '../types/Pokemon';
-import { toCapitalize } from '../utils/string';
-import battleBackground from '../assets/battle-background.webp';
-import Attack from '../components/Attack';
+import { GET } from '../../graphql/Pokemon.graphql';
+import { Ability, Pokemon } from '../../types/Pokemon';
+import { toCapitalize } from '../../utils/string';
+import battleBackground from '../../assets/battle-background.webp';
+import Attack from '../../components/Attack';
 
 const attackMenuBorderStyle = css`
   background-color: #FFF;
