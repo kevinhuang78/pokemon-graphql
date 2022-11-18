@@ -2,7 +2,6 @@ import { MockedResponse } from '@apollo/client/testing';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { GraphQLError } from 'graphql';
-import { createMemoryHistory } from 'history';
 import Router from 'react-router-dom';
 
 import { GET } from '../../graphql/Pokemon.graphql';
@@ -62,25 +61,15 @@ const successGraphQLMock = [{
 }];
 
 type RenderParams = {
-  path?: string;
   graphQLMocks?: ReadonlyArray<MockedResponse>;
 };
 
 const render = ({
-  path = '/pokemon/charmeleon',
   graphQLMocks,
-}: RenderParams) => {
-  const history = createMemoryHistory({
-    initialEntries: [path],
-    initialIndex: 0,
-  });
-
-  return renderScreen({
-    screen: <Details />,
-    graphQLMocks,
-    history,
-  })
-};
+}: RenderParams) => renderScreen({
+  screen: <Details />,
+  graphQLMocks,
+});
 
 const isModalContentVisible = (isVisible: boolean) => {
   if (isVisible) {
@@ -184,7 +173,6 @@ describe('Details screen', () => {
   it('shows error correctly', async () => {
     jest.spyOn(Router, 'useParams').mockReturnValue({ pokemonKey: 'aaa' });
     render({
-      path: '/pokemon/aaa',
       graphQLMocks: [{
         request: {
           query: GET,
