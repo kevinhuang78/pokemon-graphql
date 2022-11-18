@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -124,6 +124,7 @@ const Modal = styled.div<{
   left: ${({ $isShown }) => $isShown ? '0' : '100%'};
   top: 0;
   z-index: 2;
+  visibility: ${({ $isShown }) => $isShown ? 'visible' : 'hidden'};
   width: 100vw;
   height: 100vh;
   padding: 20px;
@@ -202,10 +203,10 @@ const Details = () => {
           <div>
             <p>Evolutions</p>
             {evolutions.map((evolution) => (
-              <>
-                <img src={evolution.sprite} alt={evolution.key} />
+              <Fragment key={evolution.key}>
+                <img src={evolution.sprite} alt={toCapitalize(evolution.key)} />
                 <p>{toCapitalize(evolution.key)}</p>
-              </>
+              </Fragment>
             ))}
           </div>
         )}
@@ -214,7 +215,7 @@ const Details = () => {
             <p>Pre-evolutions</p>
             {preevolutions.map((preevolution) => (
               <>
-                <img src={preevolution.sprite} alt={preevolution.key} />
+                <img src={preevolution.sprite} alt={toCapitalize(preevolution.key)} />
                 <p>{toCapitalize(preevolution.key)}</p>
               </>
             ))}
@@ -223,7 +224,7 @@ const Details = () => {
         <button onClick={toggleModal}>Close</button>
       </Modal>
       <ImageContainer>
-        <Sprite src={isShiny ? shinySprite : sprite} alt={name} onClick={switchSprite} />
+        <Sprite src={isShiny ? shinySprite : sprite} alt={toCapitalize(name)} onClick={switchSprite} />
       </ImageContainer>
       <Menu>
         <Attacks>

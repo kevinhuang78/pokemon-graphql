@@ -6,18 +6,20 @@ import { Ability } from '../types/Pokemon';
 
 const Item = styled.div<{
   $isClickable: boolean;
-  $isSelected: boolean;
 }>`
   width: 50%;
 
   cursor: ${({ $isClickable }) => $isClickable ? 'pointer' : 'default'};
-  color: ${({ $isSelected }) => $isSelected ? '#9790B7' : '#000'};
 `;
 
-const AttackName = styled.span`
+const AttackName = styled.span<{
+  $isSelected: boolean;
+}>`
   margin-left: 15px;
   font-weight: 700;
   font-size: 25px;
+
+  color: ${({ $isSelected }) => $isSelected ? '#9790B7' : '#000'};
 `;
 
 type AttackProps = {
@@ -35,10 +37,9 @@ const Attack = ({ ability, onPress, isSelected }: AttackProps) => {
   return (
     <Item
       $isClickable={isClickable}
-      $isSelected={isSelected}
       onClick={isClickable ? onClick : undefined}
     >
-      <AttackName>{ability?.name || '-'}</AttackName>
+      <AttackName $isSelected={isSelected}>{ability?.name || '-'}</AttackName>
     </Item>
   );
 };
